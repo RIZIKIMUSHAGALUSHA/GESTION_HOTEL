@@ -8,5 +8,10 @@ namespace GESTION_HOTEL
 {
     internal class Categorie
     {
+        int id;
+        string designation;
+
+        public int Id { get => id; set => id = value; }
+        public string Designation { get => designation; set => designation = value; }
     }
 }
