@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,9 +40,9 @@ namespace GESTION_HOTEL.Classes
             {
                 InitialiseConnexion();
                 con.Open();
-                cmd = new SqlCommand(" SaveCategorie @id, @categorie ", con);
+                cmd = new SqlCommand(" SaveCategorisation @id, @designation", con);
                 cmd.Parameters.AddWithValue("@id", categ.Id);
-                cmd.Parameters.AddWithValue("@categorie", categ.Designation);
+                cmd.Parameters.AddWithValue("@designation", categ.Designation);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
@@ -69,7 +70,67 @@ namespace GESTION_HOTEL.Classes
                 MessageBox.Show(ex.Message);
             }
         }
-
+        public void updateclient(Client cli)
+        { 
+          try
+            {
+                InitialiseConnexion();
+        con.Open();
+                cmd = new SqlCommand("EXEC saveClient @id,@noms,@adresse,@contact", con);
+                cmd.Parameters.AddWithValue("@id", cli.Id);
+                cmd.Parameters.AddWithValue("@nom", cli.Nom);
+                cmd.Parameters.AddWithValue("@adresse", cli.Adresse);
+                cmd.Parameters.AddWithValue("@contact", cli.Contact);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void updatechambre(Chambre cha)
+        {
+            try
+            {
+                InitialiseConnexion();
+                con.Open();
+                cmd = new SqlCommand("EXEC savechambre @id,@numero,@Refclasse,@contact", con);
+                cmd.Parameters.AddWithValue("@id", cha.Id);
+                cmd.Parameters.AddWithValue("@numero", cha.Numero);
+                cmd.Parameters.AddWithValue("@Refclasse", cha.RefClasse);
+                cmd.Parameters.AddWithValue("@contact", cha.Contact);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void updateReservation(Reservation res)
+        {
+            try
+            {
+                InitialiseConnexion();
+                con.Open();
+                cmd = new SqlCommand("EXEC saveReservation @id,@Refclient,@RefChambre,@DateEntree,@DateSortie", con);
+                cmd.Parameters.AddWithValue("@id", res.Id);
+                cmd.Parameters.AddWithValue("@Refclient", res.RefClient);
+                cmd.Parameters.AddWithValue("@RefChambre", res.RefChambre);
+                cmd.Parameters.AddWithValue("@DateEntree", res.DateEntree);
+                cmd.Parameters.AddWithValue("@DateSortie", res.DateSortie);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         public DataTable loadData(string nomTable)
         {
 
